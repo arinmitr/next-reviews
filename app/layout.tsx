@@ -35,6 +35,14 @@ const RootLayout = ({ children }: LayoutProps) => {
             className="text-orange-800 hover:underline"
           >
             IGN
+          </a>{" "}
+          | Deployed on{" "}
+          <a
+            href="https://vercel.com/"
+            target="_blank"
+            className="text-orange-800 hover:underline"
+          >
+            Vercel
           </a>
         </footer>
       </body>

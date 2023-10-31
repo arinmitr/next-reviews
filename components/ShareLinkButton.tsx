@@ -8,7 +8,7 @@ const ShareLinkButton = () => {
     setClicked(true);
     setTimeout(() => setClicked(false), 1000);
   };
-  console.log("Rendering [ShareLinkButton]");
+  // console.log("Rendering [ShareLinkButton]");
   return (
     <button
       onClick={handleClick}

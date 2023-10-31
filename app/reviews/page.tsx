@@ -9,6 +9,7 @@ export const metadata = {
 
 const ReviewsPage = async () => {
   const reviews = await getReviews();
+  // console.log("Reviews", reviews);
   return (
     <>
       <Heading>Reviews</Heading>

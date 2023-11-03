@@ -4,13 +4,19 @@ import Heading from "@/components/Heading";
 import { Review, getReviews } from "@/lib/reviews";
 import Image from "next/image";
 
+// export const dynamic = "force-dynamic";
+// export const revalidate = 30; //seconds
+
 export const metadata = {
   title: "Reviews",
 };
 
 const ReviewsPage = async () => {
-  const reviews = await getReviews();
-  // console.log("Reviews", reviews);
+  const reviews = await getReviews(6);
+  console.log(
+    "[ReviewsPage] Rendering",
+    reviews.map((review) => review.slug).join(", ")
+  );
   return (
     <>
       <Heading>Reviews</Heading>

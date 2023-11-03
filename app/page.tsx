@@ -1,11 +1,18 @@
 import React from "react";
 import Link from "next/link";
 import Heading from "@/components/Heading";
-import { getFeaturedReviews } from "@/lib/reviews";
+import { getFeaturedReviews, getReviews } from "@/lib/reviews";
 import Image from "next/image";
 
+// export const dynamic = "force-dynamic";
+// export const revalidate = 30; //seconds
+
 const Homepage = async () => {
-  const featuredReviews = await getFeaturedReviews();
+  const featuredReviews = await getReviews(3);
+  console.log(
+    "[HomePage] Rendering",
+    featuredReviews.map((review) => review.slug).join(", ")
+  );
   return (
     <>
       <Heading>Indie Gamer</Heading>

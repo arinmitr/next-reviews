@@ -11,6 +11,11 @@ export interface Review {
   image: string;
 }
 
+export interface PaginatedReviews {
+  reviews: Review[];
+  pageCount: number;
+}
+
 export interface FullReview extends Review {
   body: string;
 }
@@ -46,14 +51,17 @@ export async function getSlugs(): Promise<string[]> {
   return data.map((item: CmsItem) => item.attributes.slug);
 }
 
-export const getReviews = async (pageSize: number): Promise<Review[]> => {
-  const { data } = await fetchReviews({
+export const getReviews = async (
+  pageSize: number,
+  page?: number
+): Promise<PaginatedReviews> => {
+  const { data, meta } = await fetchReviews({
     fields: ["slug", "title", "subtitle", "publishedAt"],
     populate: { image: { fields: ["url"] } },
     sort: ["publishedAt:desc"],
-    pagination: { pageSize },
+    pagination: { pageSize, page },
   });
-  return data.map(toReview);
+  return { reviews: data.map(toReview), pageCount: meta.pagination.pageCount };
 };
 
 export const getFeaturedReviews = async (): Promise<Review[]> => {

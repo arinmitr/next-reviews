@@ -8,7 +8,7 @@ import Image from "next/image";
 // export const revalidate = 30; //seconds
 
 const Homepage = async () => {
-  const featuredReviews = await getReviews(3);
+  const { reviews: featuredReviews } = await getReviews(3);
   console.log(
     "[HomePage] Rendering",
     featuredReviews.map((review) => review.slug).join(", ")

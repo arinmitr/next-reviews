@@ -4,6 +4,7 @@ import Image from "next/image";
 import Heading from "@/components/Heading";
 import { Review, getReviews } from "@/lib/reviews";
 import PaginationBar from "@/components/PaginationBar";
+import SearchBox from "@/components/SearchBox";
 
 // export const dynamic = "force-dynamic";
 // export const revalidate = 30; //seconds
@@ -22,6 +23,7 @@ const PAGE_SIZE = 6;
 const ReviewsPage = async ({ searchParams }: ReviewsPageProps) => {
   const page = parsePageParams(searchParams.page);
   const { reviews, pageCount } = await getReviews(PAGE_SIZE, page);
+
   console.log(
     "[ReviewsPage] Rendering",
     reviews.map((review) => review.slug).join(", ")
@@ -29,7 +31,11 @@ const ReviewsPage = async ({ searchParams }: ReviewsPageProps) => {
   return (
     <>
       <Heading>Reviews</Heading>
-      <PaginationBar page={page} pageCount={pageCount} href="/reviews" />
+      <div className="flex justify-between sm:justify-normal sm:gap-5 pb-3">
+        <PaginationBar page={page} pageCount={pageCount} href="/reviews" />
+        <SearchBox />
+      </div>
+
       <ul className="flex flex-row flex-wrap gap-3">
         {reviews.map((review: Review, index) => (
           <li

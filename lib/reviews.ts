@@ -10,7 +10,7 @@ export interface Review {
   date: string;
   image: string;
 }
-
+export type SearchableReview = Pick<Review, "slug" | "title">;
 export interface PaginatedReviews {
   reviews: Review[];
   pageCount: number;
@@ -42,6 +42,20 @@ export const getReview = async (slug: string): Promise<FullReview | null> => {
   };
 };
 
+export async function SearchReviews(
+  query: string
+): Promise<SearchableReview[]> {
+  const { data } = await fetchReviews({
+    filters: { title: { $containsi: query } },
+    fields: ["slug", "title"],
+    sort: ["title"],
+    pagination: { pageSize: 5 },
+  });
+  return data.map(({ attributes }: any) => ({
+    slug: attributes.slug,
+    title: attributes.title,
+  }));
+}
 export async function getSlugs(): Promise<string[]> {
   const { data } = await fetchReviews({
     fields: ["slug"],

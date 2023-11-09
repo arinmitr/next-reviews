@@ -1,7 +1,7 @@
 import { marked } from "marked";
 import qs from "qs";
 
-const CMS_URL = "http://localhost:1337";
+const CMS_URL = process.env.CMS_URL;
 export const CACHE_TAG_REVIEWS = "reviews";
 export interface Review {
   slug: string;
